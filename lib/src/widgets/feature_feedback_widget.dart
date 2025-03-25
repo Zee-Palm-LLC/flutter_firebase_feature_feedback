@@ -12,8 +12,8 @@ class FeatureFeedbackWidget extends StatelessWidget {
   final bool isDeveloper;
   final Color primaryColor;
   final Color secondaryColor;
-  final Color backgroundColor;
-  final Color textColor;
+  final Color? backgroundColor;
+  final Color? textColor;
 
   const FeatureFeedbackWidget({
     super.key,
@@ -22,12 +22,17 @@ class FeatureFeedbackWidget extends StatelessWidget {
     this.isDeveloper = false,
     this.primaryColor = Colors.blue,
     this.secondaryColor = Colors.red,
-    this.backgroundColor = Colors.white,
-    this.textColor = Colors.black87,
+    this.backgroundColor,
+    this.textColor,
   });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final actualBackgroundColor = backgroundColor ?? theme.cardColor;
+    final actualTextColor =
+        textColor ?? theme.textTheme.bodyLarge?.color ?? Colors.black87;
+
     return ChangeNotifierProvider(
       create: (context) => FeatureFeedbackProvider(
         FeatureFeedbackService(collectionPath: collectionPath),
@@ -37,8 +42,8 @@ class FeatureFeedbackWidget extends StatelessWidget {
         isDeveloper: isDeveloper,
         primaryColor: primaryColor,
         secondaryColor: secondaryColor,
-        backgroundColor: backgroundColor,
-        textColor: textColor,
+        backgroundColor: actualBackgroundColor,
+        textColor: actualTextColor,
       ),
     );
   }
@@ -103,7 +108,7 @@ class _FeatureFeedbackContent extends StatelessWidget {
                       child: Text(
                         'No feature requests yet. Be the first to suggest one!',
                         style: TextStyle(
-                          color: textColor.withAlpha(153),
+                          color: textColor.withOpacity(0.6),
                           fontSize: 16,
                         ),
                         textAlign: TextAlign.center,
@@ -417,13 +422,16 @@ class _FeatureRequestCardState extends State<_FeatureRequestCard> {
       child: Container(
         decoration: BoxDecoration(
           color: widget.backgroundColor,
-          border: Border.all(color: Colors.grey.shade200),
+          border: Border.all(
+            color: Theme.of(context).dividerColor,
+          ),
           boxShadow: [
-            BoxShadow(
-              color: Colors.black.withAlpha(13),
-              offset: const Offset(0, 2),
-              blurRadius: 4,
-            ),
+            if (Theme.of(context).brightness == Brightness.light)
+              BoxShadow(
+                color: Colors.black.withAlpha(13),
+                offset: const Offset(0, 2),
+                blurRadius: 4,
+              ),
           ],
         ),
         child: Column(
