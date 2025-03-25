@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "314131179814",
+    "project_id": "ff-feature-feedback",
+    "storage_bucket": "ff-feature-feedback.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314131179814:android:b5f890acfe76e455ad39e7",
+        "android_client_info": {
+          "package_name": "com.example.example"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA60Ff3b_m4d6zMmEjd_7Hhj34jI0J0YWo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
