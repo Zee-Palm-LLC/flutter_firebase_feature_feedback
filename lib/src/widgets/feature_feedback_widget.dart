@@ -53,7 +53,6 @@ class _FeatureFeedbackContent extends StatelessWidget {
   final Color textColor;
 
   const _FeatureFeedbackContent({
-    super.key,
     required this.userId,
     required this.isDeveloper,
     required this.primaryColor,
@@ -104,7 +103,7 @@ class _FeatureFeedbackContent extends StatelessWidget {
                       child: Text(
                         'No feature requests yet. Be the first to suggest one!',
                         style: TextStyle(
-                          color: textColor.withOpacity(0.6),
+                          color: textColor.withAlpha(153),
                           fontSize: 16,
                         ),
                         textAlign: TextAlign.center,
@@ -227,7 +226,7 @@ class _FeatureFeedbackContent extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   'Share your ideas to help improve the app',
-                  style: TextStyle(color: textColor.withOpacity(0.6)),
+                  style: TextStyle(color: textColor.withAlpha(153)),
                 ),
                 const SizedBox(height: 24),
                 TextField(
@@ -258,7 +257,7 @@ class _FeatureFeedbackContent extends StatelessWidget {
                       onPressed: () => Navigator.pop(context),
                       child: Text(
                         'Cancel',
-                        style: TextStyle(color: textColor.withOpacity(0.8)),
+                        style: TextStyle(color: textColor.withAlpha(153)),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -306,7 +305,6 @@ class _FeatureRequestCard extends StatefulWidget {
   final Color textColor;
 
   const _FeatureRequestCard({
-    super.key,
     required this.request,
     required this.userId,
     required this.isDeveloper,
@@ -422,7 +420,7 @@ class _FeatureRequestCardState extends State<_FeatureRequestCard> {
           border: Border.all(color: Colors.grey.shade200),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withAlpha(13),
               offset: const Offset(0, 2),
               blurRadius: 4,
             ),
@@ -480,7 +478,7 @@ class _FeatureRequestCardState extends State<_FeatureRequestCard> {
                   Text(
                     _localRequest.description,
                     style: TextStyle(
-                      color: widget.textColor.withOpacity(0.7),
+                      color: widget.textColor.withAlpha(179),
                       height: 1.4,
                     ),
                   ),
@@ -500,7 +498,7 @@ class _FeatureRequestCardState extends State<_FeatureRequestCard> {
                         count: _localRequest.upvotes,
                         isActive: hasUpvoted,
                         activeColor: widget.primaryColor,
-                        inactiveColor: widget.textColor.withOpacity(0.5),
+                        inactiveColor: widget.textColor.withAlpha(128),
                       ),
                       
                       const SizedBox(width: 20),
@@ -512,7 +510,7 @@ class _FeatureRequestCardState extends State<_FeatureRequestCard> {
                         count: _localRequest.downvotes,
                         isActive: hasDownvoted,
                         activeColor: widget.secondaryColor,
-                        inactiveColor: widget.textColor.withOpacity(0.5),
+                        inactiveColor: widget.textColor.withAlpha(128),
                       ),
                     ],
                   ),
@@ -527,7 +525,7 @@ class _FeatureRequestCardState extends State<_FeatureRequestCard> {
 
   Widget _buildStatusDropdown(BuildContext context) {
     return PopupMenuButton<String>(
-      icon: Icon(Icons.more_vert, color: widget.textColor.withOpacity(0.7)),
+      icon: Icon(Icons.more_vert, color: widget.textColor.withAlpha(153)),
       onSelected: (value) {
         context.read<FeatureFeedbackProvider>().updateStatus(
               featureId: widget.request.id,
@@ -678,7 +676,8 @@ class _VoteButtonState extends State<VoteButton> with SingleTickerProviderStateM
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          color: _isActive ? widget.activeColor.withOpacity(0.1) : Colors.transparent,
+          color:
+              _isActive ? widget.activeColor.withAlpha(26) : Colors.transparent,
           border: Border.all(
             color: _isActive ? widget.activeColor : Colors.grey.shade300,
             width: 1,
@@ -794,7 +793,7 @@ class ErrorDisplay extends StatelessWidget {
             child: Text(
               message,
               style: TextStyle(
-                color: textColor.withOpacity(0.8),
+                color: textColor.withAlpha(153),
                 height: 1.5,
               ),
               textAlign: TextAlign.center,
@@ -835,7 +834,7 @@ class ErrorDisplay extends StatelessWidget {
           Text(
             'If this problem persists, please contact support.',
             style: TextStyle(
-              color: textColor.withOpacity(0.6),
+              color: textColor.withAlpha(153),
               fontSize: 14,
             ),
             textAlign: TextAlign.center,
