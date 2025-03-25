@@ -25,6 +25,8 @@ dev_dependencies:
   fake_cloud_firestore: ^2.4.1+1
   build_runner: ^2.3.3
   
+false_secrets:
+ - /example/lib/firebase_options.dart
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
