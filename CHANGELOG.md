@@ -12,7 +12,7 @@
 
 * Updated dependencies
 
-## 1.0.0
+## 1.0.1
 
 * Initial release of flutter_firebase_feature_feedback
 * Features include:
