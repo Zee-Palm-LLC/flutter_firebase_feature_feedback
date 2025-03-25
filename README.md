@@ -81,12 +81,6 @@ FeatureFeedbackWidget(
 
 Check out the `/example` folder for a complete working example.
 
-## Additional Information
-
-- Report bugs on the [issue tracker](TODO: Add your GitHub issues URL)
-- Contribute to the package by creating pull requests
-- For detailed documentation, visit [the wiki](TODO: Add your GitHub wiki URL)
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
