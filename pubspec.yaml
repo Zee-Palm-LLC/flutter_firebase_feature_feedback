@@ -67,3 +67,10 @@ flutter:
   #
   # For details regarding fonts in packages, see
   # https://flutter.dev/to/font-from-package
+
+screenshots:
+  - description: 'Feature Feedback Form'
+    path: screenshots/add_feature_sheet.png
+  - description: 'Feature List View'
+    path: screenshots/home_page.png
+  # Add more screenshots as needed
