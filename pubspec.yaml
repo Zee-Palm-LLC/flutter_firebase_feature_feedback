@@ -1,6 +1,6 @@
 name: flutter_firebase_feature_feedback
 description: "A Flutter package that enables developers to collect and manage feature feedback from their users using Firebase. Users can submit feature requests and vote on existing ones."
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/Zee-Palm-LLC/flutter_firebase_feature_feedback  
 repository: https://github.com/Zee-Palm-LLC/flutter_firebase_feature_feedback 
 issue_tracker: https://github.com/Zee-Palm-LLC/flutter_firebase_feature_feedback/issues 

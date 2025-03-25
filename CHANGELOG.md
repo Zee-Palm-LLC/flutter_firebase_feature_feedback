@@ -7,3 +7,8 @@
   * Voting system for feature requests
   * Provider-based state management
   * Easy-to-use widget API
+
+## 0.0.2
+
+* Updated dependencies
+
