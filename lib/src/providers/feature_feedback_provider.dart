@@ -1,12 +1,14 @@
 import 'package:flutter/foundation.dart';
 import '../models/feature_request.dart';
 import '../services/feature_feedback_service.dart';
+import 'dart:async';
 
 class FeatureFeedbackProvider extends ChangeNotifier {
   final FeatureFeedbackService _service;
   List<FeatureRequest> _featureRequests = [];
   bool _isLoading = false;
   String? _error;
+  StreamSubscription? _subscription;
 
   FeatureFeedbackProvider(this._service) {
     _initializeStream();
@@ -17,7 +19,7 @@ class FeatureFeedbackProvider extends ChangeNotifier {
   String? get error => _error;
 
   void _initializeStream() {
-    _service.getFeatureRequests().listen(
+    _subscription = _service.getFeatureRequests().listen(
       (requests) {
         _featureRequests = requests;
         _error = null;
@@ -28,6 +30,12 @@ class FeatureFeedbackProvider extends ChangeNotifier {
         notifyListeners();
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
   }
 
   Future<void> addFeatureRequest({

@@ -22,3 +22,7 @@
   * Provider-based state management
   * Easy-to-use widget API
   * Fixed dark theme issues
+
+## 1.0.2
+
+* Bug fixes

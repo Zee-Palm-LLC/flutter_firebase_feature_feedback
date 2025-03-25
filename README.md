@@ -30,7 +30,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_firebase_feature_feedback: ^0.0.1
+  flutter_firebase_feature_feedback: ^1.0.2
 ```
 
 ### Firebase Setup
