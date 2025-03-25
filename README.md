@@ -11,29 +11,82 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/to/develop-packages).
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+# Flutter Firebase Feature Feedback
+
+A Flutter package that enables developers to collect and manage feature feedback from their users using Firebase. This package provides an easy way to implement feature request functionality in your Flutter applications.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- 🎯 Easy-to-use Feature Feedback Widget
+- 🔥 Firebase Integration
+- 👥 User Voting System
+- 📊 Feature Request Management
+- 🔄 Real-time Updates
+- 🎨 Customizable UI
 
-## Getting started
+## Getting Started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+### Prerequisites
+
+1. Add Firebase to your Flutter project
+2. Enable Cloud Firestore in your Firebase Console
+
+### Installation
+
+Add this to your package's `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  flutter_firebase_feature_feedback: ^0.0.1
+```
+
+### Firebase Setup
+
+1. Initialize Firebase in your app:
+```dart
+await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
+```
+
+2. Ensure you have the necessary Firebase configuration files:
+   - `google-services.json` (Android)
+   - `GoogleService-Info.plist` (iOS)
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+1. Wrap your app with the FeatureFeedbackProvider:
 
 ```dart
-const like = 'sample';
+void main() {
+  runApp(
+    FeatureFeedbackProvider(
+      child: MyApp(),
+    ),
+  );
+}
 ```
 
-## Additional information
+2. Use the FeatureFeedbackWidget wherever you want to display the feedback UI:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+FeatureFeedbackWidget(
+  onSubmit: (FeatureRequest request) {
+    print('New feature request: ${request.title}');
+  },
+)
+```
+
+## Example
+
+Check out the `/example` folder for a complete working example.
+
+## Additional Information
+
+- Report bugs on the [issue tracker](TODO: Add your GitHub issues URL)
+- Contribute to the package by creating pull requests
+- For detailed documentation, visit [the wiki](TODO: Add your GitHub wiki URL)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
