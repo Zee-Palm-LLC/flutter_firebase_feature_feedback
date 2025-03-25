@@ -6,7 +6,7 @@ A Flutter package that enables developers to collect and manage feature feedback
 
 | Feature List | Add Feature Form |
 |:------------:|:---------------:|
-| ![Feature List](screenshots/home_page.png) | ![Add Feature Form](screenshots/add_feature_sheet.png) |
+| ![Feature List](https://raw.githubusercontent.com/Zee-Palm-LLC/flutter_firebase_feature_feedback/main/screenshots/home_page.png) | ![Add Feature Form](https://raw.githubusercontent.com/Zee-Palm-LLC/flutter_firebase_feature_feedback/main/screenshots/add_feature_sheet.png) |
 
 ## Features
 
