@@ -31,7 +31,9 @@ class FeatureFeedbackWidget extends StatelessWidget {
     final theme = Theme.of(context);
     final actualBackgroundColor = backgroundColor ?? theme.cardColor;
     final actualTextColor =
-        textColor ?? theme.textTheme.bodyLarge?.color ?? Colors.black87;
+        textColor ??
+        theme.textTheme.bodyLarge?.color ??
+        (theme.brightness == Brightness.dark ? Colors.white : Colors.black87);
 
     return ChangeNotifierProvider(
       create: (context) => FeatureFeedbackProvider(
@@ -156,6 +158,7 @@ class _FeatureFeedbackContent extends StatelessWidget {
                     controller: titleController,
                     placeholder: 'Feature title',
                     padding: const EdgeInsets.all(12),
+                    style: TextStyle(color: textColor),
                   ),
                   const SizedBox(height: 16),
                   CupertinoTextField(
@@ -163,6 +166,7 @@ class _FeatureFeedbackContent extends StatelessWidget {
                     placeholder: 'Describe the feature you would like to see',
                     padding: const EdgeInsets.all(12),
                     maxLines: 4,
+                    style: TextStyle(color: textColor),
                   ),
                   const SizedBox(height: 16),
                 ],
