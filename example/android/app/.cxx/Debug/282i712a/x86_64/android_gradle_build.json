@@ -1,0 +1,28 @@
+{
+  "buildFiles": [
+    "/Users/fer/Code/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/fer/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/fer/Desktop/projects/sessions/firebase_feature/example/android/app/.cxx/Debug/282i712a/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/fer/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/fer/Desktop/projects/sessions/firebase_feature/example/android/app/.cxx/Debug/282i712a/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {},
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "/Users/fer/Library/Android/sdk/ndk/26.3.11579264/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang.lld",
+      "cppCompilerExecutable": "/Users/fer/Library/Android/sdk/ndk/26.3.11579264/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++.lld"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": []
+}

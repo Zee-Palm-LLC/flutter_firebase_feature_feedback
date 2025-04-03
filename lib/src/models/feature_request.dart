@@ -1,4 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+enum FeatureRequestStatus {
+  pending(displayText: 'Pending Review', color: Colors.amber),
+  approved(displayText: 'Approved', color: Colors.indigoAccent),
+  rejected(displayText: 'Not Planned', color: Colors.red),
+  implemented(displayText: 'Implemented', color: Colors.greenAccent);
+
+  final String displayText;
+  final Color color;
+  const FeatureRequestStatus({required this.displayText, required this.color});
+
+  static FeatureRequestStatus fromString(String status) => switch (status) {
+        'approved' => FeatureRequestStatus.approved,
+        'rejected' => FeatureRequestStatus.rejected,
+        'implemented' => FeatureRequestStatus.implemented,
+        _ => FeatureRequestStatus.pending,
+      };
+}
 
 class FeatureRequest {
   final String id;
@@ -6,11 +25,9 @@ class FeatureRequest {
   final String description;
   final String userId;
   final DateTime createdAt;
-  final int upvotes;
-  final int downvotes;
   final List<String> upvoterIds;
   final List<String> downvoterIds;
-  final String status; // 'pending', 'approved', 'rejected', 'implemented'
+  final FeatureRequestStatus status;
 
   FeatureRequest({
     required this.id,
@@ -18,11 +35,9 @@ class FeatureRequest {
     required this.description,
     required this.userId,
     required this.createdAt,
-    this.upvotes = 0,
-    this.downvotes = 0,
     List<String>? upvoterIds,
     List<String>? downvoterIds,
-    this.status = 'pending',
+    this.status = FeatureRequestStatus.pending,
   })  : upvoterIds = upvoterIds ?? [],
         downvoterIds = downvoterIds ?? [];
 
@@ -34,11 +49,9 @@ class FeatureRequest {
       description: data['description'] ?? '',
       userId: data['userId'] ?? '',
       createdAt: (data['createdAt'] as Timestamp).toDate(),
-      upvotes: data['upvotes'] ?? 0,
-      downvotes: data['downvotes'] ?? 0,
       upvoterIds: List<String>.from(data['upvoterIds'] ?? []),
       downvoterIds: List<String>.from(data['downvoterIds'] ?? []),
-      status: data['status'] ?? 'pending',
+      status: FeatureRequestStatus.fromString(data['status'] ?? ''),
     );
   }
 
@@ -48,11 +61,9 @@ class FeatureRequest {
       'description': description,
       'userId': userId,
       'createdAt': Timestamp.fromDate(createdAt),
-      'upvotes': upvotes,
-      'downvotes': downvotes,
       'upvoterIds': upvoterIds,
       'downvoterIds': downvoterIds,
-      'status': status,
+      'status': status.displayText,
     };
   }
 
@@ -61,7 +72,7 @@ class FeatureRequest {
     String? title,
     String? description,
     String? userId,
-    String? status,
+    FeatureRequestStatus? status,
     int? upvotes,
     int? downvotes,
     List<String>? upvoterIds,
@@ -74,8 +85,6 @@ class FeatureRequest {
       description: description ?? this.description,
       userId: userId ?? this.userId,
       status: status ?? this.status,
-      upvotes: upvotes ?? this.upvotes,
-      downvotes: downvotes ?? this.downvotes,
       upvoterIds: upvoterIds ?? this.upvoterIds,
       downvoterIds: downvoterIds ?? this.downvoterIds,
       createdAt: createdAt ?? this.createdAt,

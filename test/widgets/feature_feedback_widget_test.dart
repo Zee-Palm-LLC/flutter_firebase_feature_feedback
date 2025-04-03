@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_feature_feedback/src/screens/features.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_firebase_feature_feedback/src/widgets/feature_feedback_widget.dart';
 import 'package:flutter_firebase_feature_feedback/src/providers/feature_feedback_provider.dart';
 import 'package:flutter_firebase_feature_feedback/src/models/feature_request.dart';
 
@@ -28,8 +28,6 @@ void main() {
           description: 'Description 1',
           userId: 'user-1',
           createdAt: DateTime.now(),
-          upvotes: 5,
-          downvotes: 2,
         ),
         FeatureRequest(
           id: 'test-2',
@@ -37,27 +35,25 @@ void main() {
           description: 'Description 2',
           userId: 'user-2',
           createdAt: DateTime.now(),
-          upvotes: 10,
-          downvotes: 1,
-          status: 'approved',
+          status: FeatureRequestStatus.approved,
         ),
       ]);
       when(mockProvider.isLoading).thenReturn(false);
       when(mockProvider.error).thenReturn(null);
-      
+
       // Build the widget
       await tester.pumpWidget(
         MaterialApp(
           home: ChangeNotifierProvider<FeatureFeedbackProvider>.value(
             value: mockProvider,
-            child: FeatureFeedbackWidget(
+            child: FeaturesBoardScreen(
               userId: 'current-user',
               collectionPath: 'test-collection',
             ),
           ),
         ),
       );
-      
+
       // Verify the widget shows feature requests
       expect(find.text('Feature 1'), findsOneWidget);
       expect(find.text('Feature 2'), findsOneWidget);
@@ -72,20 +68,20 @@ void main() {
       when(mockProvider.featureRequests).thenReturn([]);
       when(mockProvider.isLoading).thenReturn(true);
       when(mockProvider.error).thenReturn(null);
-      
+
       // Build the widget
       await tester.pumpWidget(
         MaterialApp(
           home: ChangeNotifierProvider<FeatureFeedbackProvider>.value(
             value: mockProvider,
-            child: FeatureFeedbackWidget(
-                userId: 'current-user',
+            child: FeaturesBoardScreen(
+              userId: 'current-user',
               collectionPath: 'test-collection',
             ),
           ),
         ),
       );
-      
+
       // Verify the loading indicator is shown
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
@@ -95,20 +91,20 @@ void main() {
       when(mockProvider.featureRequests).thenReturn([]);
       when(mockProvider.isLoading).thenReturn(false);
       when(mockProvider.error).thenReturn('Test error message');
-      
+
       // Build the widget
       await tester.pumpWidget(
         MaterialApp(
           home: ChangeNotifierProvider<FeatureFeedbackProvider>.value(
             value: mockProvider,
-            child: FeatureFeedbackWidget(
+            child: FeaturesBoardScreen(
               userId: 'current-user',
               collectionPath: 'test-collection',
             ),
           ),
         ),
       );
-      
+
       // Verify the error message is shown
       expect(find.text('Test error message'), findsOneWidget);
     });
@@ -123,34 +119,34 @@ void main() {
         description: anyNamed('description'),
         userId: anyNamed('userId'),
       )).thenAnswer((_) async => {});
-      
+
       // Build the widget
       await tester.pumpWidget(
         MaterialApp(
           home: ChangeNotifierProvider<FeatureFeedbackProvider>.value(
             value: mockProvider,
-            child: FeatureFeedbackWidget(
+            child: FeaturesBoardScreen(
               userId: 'current-user',
               collectionPath: 'test-collection',
             ),
           ),
         ),
       );
-      
+
       // Find and tap the add button
       final addButton = find.byIcon(Icons.add);
       expect(addButton, findsOneWidget);
       await tester.tap(addButton);
       await tester.pumpAndSettle();
-      
+
       // Fill in the form
       await tester.enterText(find.byKey(Key('titleField')), 'New Feature Title');
       await tester.enterText(find.byKey(Key('descriptionField')), 'New Feature Description');
-      
+
       // Submit the form
       await tester.tap(find.text('Submit'));
       await tester.pumpAndSettle();
-      
+
       // Verify the provider method was called with the correct arguments
       verify(mockProvider.addFeatureRequest(
         title: 'New Feature Title',
@@ -168,8 +164,6 @@ void main() {
           description: 'Description 1',
           userId: 'user-1',
           createdAt: DateTime.now(),
-          upvotes: 5,
-          downvotes: 2,
         ),
       ]);
       when(mockProvider.isLoading).thenReturn(false);
@@ -179,26 +173,26 @@ void main() {
         userId: anyNamed('userId'),
         isUpvote: anyNamed('isUpvote'),
       )).thenAnswer((_) async => {});
-      
+
       // Build the widget
       await tester.pumpWidget(
         MaterialApp(
           home: ChangeNotifierProvider<FeatureFeedbackProvider>.value(
             value: mockProvider,
-            child: FeatureFeedbackWidget(
+            child: FeaturesBoardScreen(
               userId: 'current-user',
               collectionPath: 'test-collection',
             ),
           ),
         ),
       );
-      
+
       // Find and tap the upvote button
       final upvoteButton = find.byIcon(Icons.thumb_up);
       expect(upvoteButton, findsOneWidget);
       await tester.tap(upvoteButton);
       await tester.pump();
-      
+
       // Verify the provider method was called with the correct arguments
       verify(mockProvider.updateVote(
         featureId: 'test-1',
@@ -209,4 +203,4 @@ void main() {
   });
 }
 
-void testFeatureFeedbackWidget() => main(); 
+void testFeatureFeedbackWidget() => main();

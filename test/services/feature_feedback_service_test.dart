@@ -30,8 +30,6 @@ void main() {
       expect(request.title, 'New Feature');
       expect(request.description, 'This is a new feature request');
       expect(request.userId, 'user-456');
-      expect(request.upvotes, 0);
-      expect(request.downvotes, 0);
       expect(request.status, 'pending');
 
       // Verify the request exists in Firestore

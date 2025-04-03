@@ -20,8 +20,6 @@ void main() {
       expect(request.description, 'This is a test feature');
       expect(request.userId, 'user-123');
       expect(request.createdAt, now);
-      expect(request.upvotes, 0);
-      expect(request.downvotes, 0);
       expect(request.upvoterIds, isEmpty);
       expect(request.downvoterIds, isEmpty);
       expect(request.status, 'pending');
@@ -35,15 +33,11 @@ void main() {
         description: 'This is a test feature',
         userId: 'user-123',
         createdAt: now,
-        upvotes: 10,
-        downvotes: 5,
         upvoterIds: ['user1', 'user2'],
         downvoterIds: ['user3'],
-        status: 'approved',
+        status: FeatureRequestStatus.approved,
       );
 
-      expect(request.upvotes, 10);
-      expect(request.downvotes, 5);
       expect(request.upvoterIds, ['user1', 'user2']);
       expect(request.downvoterIds, ['user3']);
       expect(request.status, 'approved');
@@ -57,15 +51,13 @@ void main() {
         description: 'This is a test feature',
         userId: 'user-123',
         createdAt: now,
-        upvotes: 10,
-        downvotes: 5,
         upvoterIds: ['user1', 'user2'],
         downvoterIds: ['user3'],
-        status: 'approved',
+        status: FeatureRequestStatus.approved,
       );
 
       final firestoreMap = request.toFirestore();
-      
+
       expect(firestoreMap['title'], 'Test Feature');
       expect(firestoreMap['description'], 'This is a test feature');
       expect(firestoreMap['userId'], 'user-123');
@@ -82,7 +74,7 @@ void main() {
       final fakeFirestore = FakeFirebaseFirestore();
       final now = DateTime.now();
       final timestamp = Timestamp.fromDate(now);
-      
+
       // Add test document
       final docRef = await fakeFirestore.collection('features').add({
         'title': 'Test Feature',
@@ -95,10 +87,10 @@ void main() {
         'downvoterIds': ['user3'],
         'status': 'approved',
       });
-      
+
       final doc = await docRef.get();
       final request = FeatureRequest.fromFirestore(doc);
-      
+
       expect(request.id, doc.id);
       expect(request.title, 'Test Feature');
       expect(request.description, 'This is a test feature');
@@ -106,8 +98,6 @@ void main() {
       expect(request.createdAt.year, now.year);
       expect(request.createdAt.month, now.month);
       expect(request.createdAt.day, now.day);
-      expect(request.upvotes, 10);
-      expect(request.downvotes, 5);
       expect(request.upvoterIds, ['user1', 'user2']);
       expect(request.downvoterIds, ['user3']);
       expect(request.status, 'approved');
@@ -125,23 +115,21 @@ void main() {
 
       final modifiedRequest = request.copyWith(
         title: 'Updated Title',
-        status: 'implemented',
+        status: FeatureRequestStatus.implemented,
         upvotes: 15,
       );
 
       // Original should be unchanged
       expect(request.title, 'Test Feature');
       expect(request.status, 'pending');
-      expect(request.upvotes, 0);
 
       // Modified should have updated fields
       expect(modifiedRequest.id, 'test-id'); // Same as original
       expect(modifiedRequest.title, 'Updated Title'); // Updated
       expect(modifiedRequest.description, 'This is a test feature'); // Same as original
       expect(modifiedRequest.status, 'implemented'); // Updated
-      expect(modifiedRequest.upvotes, 15); // Updated
     });
   });
 }
 
-void testFeatureRequest() => main(); 
+void testFeatureRequest() => main();
