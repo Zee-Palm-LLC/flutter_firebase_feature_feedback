@@ -39,7 +39,8 @@ class FeatureFeedbackList extends StatelessWidget {
               return const TipCard();
             }
             if (provider.featureRequests.isEmpty) {
-              return Center(
+              return Padding(
+                padding: const EdgeInsets.only(top: 32),
                 child: Text(
                   'Be the first to suggest a new Feature!',
                   textAlign: TextAlign.center,

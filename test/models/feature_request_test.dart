@@ -61,8 +61,6 @@ void main() {
       expect(firestoreMap['title'], 'Test Feature');
       expect(firestoreMap['description'], 'This is a test feature');
       expect(firestoreMap['userId'], 'user-123');
-      expect(firestoreMap['upvotes'], 10);
-      expect(firestoreMap['downvotes'], 5);
       expect(firestoreMap['upvoterIds'], ['user1', 'user2']);
       expect(firestoreMap['downvoterIds'], ['user3']);
       expect(firestoreMap['status'], 'approved');
@@ -81,8 +79,6 @@ void main() {
         'description': 'This is a test feature',
         'userId': 'user-123',
         'createdAt': timestamp,
-        'upvotes': 10,
-        'downvotes': 5,
         'upvoterIds': ['user1', 'user2'],
         'downvoterIds': ['user3'],
         'status': 'approved',
@@ -116,7 +112,6 @@ void main() {
       final modifiedRequest = request.copyWith(
         title: 'Updated Title',
         status: FeatureRequestStatus.implemented,
-        upvotes: 15,
       );
 
       // Original should be unchanged

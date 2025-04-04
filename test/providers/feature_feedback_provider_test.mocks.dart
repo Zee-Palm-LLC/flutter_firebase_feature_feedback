@@ -5,10 +5,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
-import 'package:flutter_firebase_feature_feedback/src/models/feature_request.dart'
-    as _i2;
-import 'package:flutter_firebase_feature_feedback/src/services/feature_feedback_service.dart'
-    as _i3;
+import 'package:flutter_firebase_feature_feedback/src/models/feature_request.dart' as _i2;
+import 'package:flutter_firebase_feature_feedback/src/services/feature_feedback_service.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i4;
 
@@ -26,31 +24,26 @@ import 'package:mockito/src/dummies.dart' as _i4;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeFeatureRequest_0 extends _i1.SmartFake
-    implements _i2.FeatureRequest {
-  _FakeFeatureRequest_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+class _FakeFeatureRequest_0 extends _i1.SmartFake implements _i2.FeatureRequest {
+  _FakeFeatureRequest_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 /// A class which mocks [FeatureFeedbackService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFeatureFeedbackService extends _i1.Mock
-    implements _i3.FeatureFeedbackService {
+class MockFeatureFeedbackService extends _i1.Mock implements _i3.FeatureFeedbackService {
   MockFeatureFeedbackService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  String get collectionPath =>
-      (super.noSuchMethod(
-            Invocation.getter(#collectionPath),
-            returnValue: _i4.dummyValue<String>(
-              this,
-              Invocation.getter(#collectionPath),
-            ),
-          )
-          as String);
+  String get collectionPath => (super.noSuchMethod(
+        Invocation.getter(#collectionPath),
+        returnValue: _i4.dummyValue<String>(
+          this,
+          Invocation.getter(#collectionPath),
+        ),
+      ) as String);
 
   @override
   _i5.Future<_i2.FeatureRequest> createFeatureRequest({
@@ -59,41 +52,42 @@ class MockFeatureFeedbackService extends _i1.Mock
     required String? userId,
   }) =>
       (super.noSuchMethod(
+        Invocation.method(#createFeatureRequest, [], {
+          #title: title,
+          #description: description,
+          #userId: userId,
+        }),
+        returnValue: _i5.Future<_i2.FeatureRequest>.value(
+          _FakeFeatureRequest_0(
+            this,
             Invocation.method(#createFeatureRequest, [], {
               #title: title,
               #description: description,
               #userId: userId,
             }),
-            returnValue: _i5.Future<_i2.FeatureRequest>.value(
-              _FakeFeatureRequest_0(
-                this,
-                Invocation.method(#createFeatureRequest, [], {
-                  #title: title,
-                  #description: description,
-                  #userId: userId,
-                }),
-              ),
-            ),
-          )
-          as _i5.Future<_i2.FeatureRequest>);
+          ),
+        ),
+      ) as _i5.Future<_i2.FeatureRequest>);
 
   @override
-  _i5.Stream<List<_i2.FeatureRequest>> getFeatureRequests() =>
+  _i5.Stream<List<_i2.FeatureRequest>> getFeatureRequests({
+    List<_i2.FeatureRequestStatus>? statuses,
+  }) =>
       (super.noSuchMethod(
-            Invocation.method(#getFeatureRequests, []),
-            returnValue: _i5.Stream<List<_i2.FeatureRequest>>.empty(),
-          )
-          as _i5.Stream<List<_i2.FeatureRequest>>);
+        Invocation.method(#getFeatureRequests, []),
+        returnValue: _i5.Stream<List<_i2.FeatureRequest>>.empty(),
+      ) as _i5.Stream<List<_i2.FeatureRequest>>);
 
   @override
-  _i5.Future<List<_i2.FeatureRequest>> getFeatureRequestsFuture() =>
+  _i5.Future<List<_i2.FeatureRequest>> getFeatureRequestsFuture({
+    List<_i2.FeatureRequestStatus>? statuses,
+  }) =>
       (super.noSuchMethod(
-            Invocation.method(#getFeatureRequestsFuture, []),
-            returnValue: _i5.Future<List<_i2.FeatureRequest>>.value(
-              <_i2.FeatureRequest>[],
-            ),
-          )
-          as _i5.Future<List<_i2.FeatureRequest>>);
+        Invocation.method(#getFeatureRequestsFuture, [], {#status: statuses}),
+        returnValue: _i5.Future<List<_i2.FeatureRequest>>.value(
+          <_i2.FeatureRequest>[],
+        ),
+      ) as _i5.Future<List<_i2.FeatureRequest>>);
 
   @override
   _i5.Future<void> updateVote({
@@ -102,15 +96,14 @@ class MockFeatureFeedbackService extends _i1.Mock
     required bool? isUpvote,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#updateVote, [], {
-              #featureId: featureId,
-              #userId: userId,
-              #isUpvote: isUpvote,
-            }),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
+        Invocation.method(#updateVote, [], {
+          #featureId: featureId,
+          #userId: userId,
+          #isUpvote: isUpvote,
+        }),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
   _i5.Future<void> updateStatus({
@@ -118,21 +111,18 @@ class MockFeatureFeedbackService extends _i1.Mock
     required String? status,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#updateStatus, [], {
-              #featureId: featureId,
-              #status: status,
-            }),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
+        Invocation.method(#updateStatus, [], {
+          #featureId: featureId,
+          #status: status,
+        }),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i5.Future<void> deleteFeatureRequest(String? featureId) =>
-      (super.noSuchMethod(
-            Invocation.method(#deleteFeatureRequest, [featureId]),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
+  _i5.Future<void> deleteFeatureRequest(String? featureId) => (super.noSuchMethod(
+        Invocation.method(#deleteFeatureRequest, [featureId]),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }

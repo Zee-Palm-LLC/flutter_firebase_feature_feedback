@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_feature_feedback/flutter_firebase_feature_feedback.dart';
 import 'package:flutter_firebase_feature_feedback/src/providers/feature_feedback_provider.dart';
 import 'package:flutter_firebase_feature_feedback/src/screens/sent.dart';
 import 'package:flutter_firebase_feature_feedback/src/widgets/styled_text_field.dart';

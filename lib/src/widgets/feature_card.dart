@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_feature_feedback/src/models/feature_request.dart';
 import 'package:flutter_firebase_feature_feedback/src/widgets/feature_card_buttons.dart';
+import 'package:flutter_firebase_feature_feedback/src/widgets/feature_label.dart';
 import 'package:flutter_firebase_feature_feedback/src/widgets/more.dart';
 
 class FeatureCard extends StatelessWidget {
@@ -65,41 +66,15 @@ class FeatureCard extends StatelessWidget {
                   feature.description,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
-                _LabelRow(status: feature.status),
+                FeatureLabel(
+                  status: feature.status,
+                  isSelected: true,
+                ),
               ],
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class _LabelRow extends StatelessWidget {
-  final FeatureRequestStatus status;
-
-  const _LabelRow({required this.status});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        switch (status) {
-          FeatureRequestStatus.implemented => const SizedBox.shrink(),
-          _ => Container(
-              margin: const EdgeInsets.only(top: 8),
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-              decoration: BoxDecoration(
-                color: status.color.withOpacity(.1),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Text(
-                status.displayText,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(color: status.color),
-              ),
-            ),
-        }
-      ],
     );
   }
 }

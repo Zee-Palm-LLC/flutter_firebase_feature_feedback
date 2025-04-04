@@ -47,16 +47,18 @@ class FeatureRequestSuccessErrorScreen extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 24),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: FilledButton(
-              child: Text('Go back'),
-              onPressed: () => Navigator.pop(context),
+          if (isSuccess) ...{
+            const SizedBox(height: 24),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: FilledButton(
+                child: Text('Go back'),
+                onPressed: () => Navigator.pop(context),
+              ),
             ),
-          ),
-          const SizedBox(height: 40),
+            const SizedBox(height: 40),
+          },
         ],
       ),
     );

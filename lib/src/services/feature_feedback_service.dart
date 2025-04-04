@@ -10,8 +10,7 @@ class FeatureFeedbackService {
     required this.collectionPath,
   }) : _firestore = firestore ?? FirebaseFirestore.instance;
 
-  CollectionReference<Map<String, dynamic>> get _collection =>
-      _firestore.collection(collectionPath);
+  CollectionReference<Map<String, dynamic>> get _collection => _firestore.collection(collectionPath);
 
   // Create a new feature request
   Future<FeatureRequest> createFeatureRequest({
@@ -24,8 +23,6 @@ class FeatureFeedbackService {
       'description': description,
       'userId': userId,
       'createdAt': Timestamp.now(),
-      'upvotes': 0,
-      'downvotes': 0,
       'upvoterIds': [],
       'downvoterIds': [],
       'status': 'pending',
@@ -36,18 +33,22 @@ class FeatureFeedbackService {
   }
 
   // Get all feature requests
-  Stream<List<FeatureRequest>> getFeatureRequests() {
-    return _collection
-        .orderBy('createdAt', descending: true)
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => FeatureRequest.fromFirestore(doc))
-            .toList());
+  Stream<List<FeatureRequest>> getFeatureRequests({List<FeatureRequestStatus>? statuses}) {
+    Query query = _collection;
+    if (statuses != null) {
+      query = query.where('status', whereIn: statuses.map((status) => status.name).toList());
+    }
+
+    return query.snapshots().map((snapshot) => snapshot.docs.map((doc) => FeatureRequest.fromFirestore(doc)).toList());
   }
 
   // Get all feature requests
-  Future<List<FeatureRequest>> getFeatureRequestsFuture() async {
-    final snapshot = await _collection.orderBy('createdAt', descending: true).get();
+  Future<List<FeatureRequest>> getFeatureRequestsFuture({List<FeatureRequestStatus>? statuses}) async {
+    Query query = _collection;
+    if (statuses != null) {
+      query = query.where('status', whereIn: statuses.map((status) => status.name).toList());
+    }
+    final snapshot = await query.get();
     return snapshot.docs.map((doc) => FeatureRequest.fromFirestore(doc)).toList();
   }
 
@@ -58,14 +59,14 @@ class FeatureFeedbackService {
     required bool isUpvote,
   }) async {
     final docRef = _collection.doc(featureId);
-    
+
     return _firestore.runTransaction((transaction) async {
       final docSnapshot = await transaction.get(docRef);
       final featureRequest = FeatureRequest.fromFirestore(docSnapshot);
-      
+
       final upvoterIds = List<String>.from(featureRequest.upvoterIds);
       final downvoterIds = List<String>.from(featureRequest.downvoterIds);
-      
+
       if (isUpvote) {
         if (upvoterIds.contains(userId)) {
           upvoterIds.remove(userId);
@@ -85,8 +86,6 @@ class FeatureFeedbackService {
       transaction.update(docRef, {
         'upvoterIds': upvoterIds,
         'downvoterIds': downvoterIds,
-        'upvotes': upvoterIds.length,
-        'downvotes': downvoterIds.length,
       });
     });
   }
@@ -103,4 +102,4 @@ class FeatureFeedbackService {
   Future<void> deleteFeatureRequest(String featureId) async {
     await _collection.doc(featureId).delete();
   }
-} 
+}

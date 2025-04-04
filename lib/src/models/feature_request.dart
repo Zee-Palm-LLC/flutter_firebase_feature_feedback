@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 enum FeatureRequestStatus {
-  pending(displayText: 'Pending Review', color: Colors.amber),
+  requests(displayText: 'Requests', color: Colors.blueGrey),
+  pending(displayText: 'Pending Review', color: Colors.orange),
   approved(displayText: 'Approved', color: Colors.indigoAccent),
   rejected(displayText: 'Not Planned', color: Colors.red),
   implemented(displayText: 'Implemented', color: Colors.greenAccent);
@@ -73,8 +74,6 @@ class FeatureRequest {
     String? description,
     String? userId,
     FeatureRequestStatus? status,
-    int? upvotes,
-    int? downvotes,
     List<String>? upvoterIds,
     List<String>? downvoterIds,
     DateTime? createdAt,
@@ -89,5 +88,18 @@ class FeatureRequest {
       downvoterIds: downvoterIds ?? this.downvoterIds,
       createdAt: createdAt ?? this.createdAt,
     );
+  }
+}
+
+extension ListFeatureExtension on List<FeatureRequest> {
+  List<FeatureRequest> get sortedByUpVotes => sortByVotes((a, b) => b.upvoterIds.length.compareTo(a.upvoterIds.length));
+
+  List<FeatureRequest> get sortedByDownVotes =>
+      sortByVotes((a, b) => b.downvoterIds.length.compareTo(a.downvoterIds.length));
+
+  List<FeatureRequest> sortByVotes(Comparator<FeatureRequest> compare) {
+    final sortedList = List<FeatureRequest>.from(this);
+    sortedList.sort(compare);
+    return sortedList;
   }
 }

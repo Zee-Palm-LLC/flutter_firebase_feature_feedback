@@ -38,25 +38,25 @@ class FeatureMoreCardButton extends StatelessWidget {
                       ),
                 ),
                 const SizedBox(height: 12),
-                ...FeatureRequestStatus.values.map(
-                  (status) => Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: status == feature.status ? status.color.withOpacity(.1) : null,
-                    ),
-                    child: PopupMenuItem(
-                      value: status,
-                      onTap: () => context.read<FeatureFeedbackProvider>().updateStatus(
-                            featureId: feature.id,
-                            status: status.name,
+                ...FeatureRequestStatus.values.where((st) => st != FeatureRequestStatus.requests).map(
+                      (status) => Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: status == feature.status ? status.color.withOpacity(.1) : null,
+                        ),
+                        child: PopupMenuItem(
+                          value: status,
+                          onTap: () => context.read<FeatureFeedbackProvider>().updateStatus(
+                                featureId: feature.id,
+                                status: status.name,
+                              ),
+                          child: Text(
+                            '${status.name[0].toUpperCase()}${status.name.substring(1)}',
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
-                      child: Text(
-                        '${status.name[0].toUpperCase()}${status.name.substring(1)}',
-                        style: Theme.of(context).textTheme.titleMedium,
+                        ),
                       ),
                     ),
-                  ),
-                ),
               ],
             ),
           ),

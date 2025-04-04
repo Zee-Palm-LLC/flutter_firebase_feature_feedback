@@ -45,8 +45,6 @@ void main() {
         'description': 'Description 1',
         'userId': 'user-1',
         'createdAt': Timestamp.now(),
-        'upvotes': 5,
-        'downvotes': 1,
         'upvoterIds': ['user-2', 'user-3'],
         'downvoterIds': ['user-4'],
         'status': 'pending',
@@ -57,8 +55,6 @@ void main() {
         'description': 'Description 2',
         'userId': 'user-2',
         'createdAt': Timestamp.fromDate(DateTime.now().subtract(Duration(days: 1))),
-        'upvotes': 10,
-        'downvotes': 2,
         'upvoterIds': ['user-1', 'user-3', 'user-5'],
         'downvoterIds': ['user-4', 'user-6'],
         'status': 'approved',
@@ -86,8 +82,6 @@ void main() {
         'description': 'Description X',
         'userId': 'user-x',
         'createdAt': Timestamp.now(),
-        'upvotes': 1,
-        'downvotes': 0,
         'upvoterIds': ['user-existing'],
         'downvoterIds': [],
         'status': 'pending',
@@ -102,7 +96,6 @@ void main() {
 
       // Verify upvote was added
       var updatedDoc = await docRef.get();
-      expect(updatedDoc.data()?['upvotes'], 2);
       expect(updatedDoc.data()?['upvoterIds'], contains('user-new'));
 
       // Test upvoting - remove an existing upvote
@@ -114,7 +107,6 @@ void main() {
 
       // Verify upvote was removed
       updatedDoc = await docRef.get();
-      expect(updatedDoc.data()?['upvotes'], 1);
       expect(updatedDoc.data()?['upvoterIds'], isNot(contains('user-existing')));
 
       // Test downvoting - add a downvote
@@ -126,7 +118,6 @@ void main() {
 
       // Verify downvote was added
       updatedDoc = await docRef.get();
-      expect(updatedDoc.data()?['downvotes'], 1);
       expect(updatedDoc.data()?['downvoterIds'], contains('user-downvoter'));
 
       // Test switching from upvote to downvote
@@ -138,8 +129,6 @@ void main() {
 
       // Verify vote was switched
       updatedDoc = await docRef.get();
-      expect(updatedDoc.data()?['upvotes'], 0);
-      expect(updatedDoc.data()?['downvotes'], 2);
       expect(updatedDoc.data()?['upvoterIds'], isNot(contains('user-new')));
       expect(updatedDoc.data()?['downvoterIds'], contains('user-new'));
     });
@@ -151,8 +140,6 @@ void main() {
         'description': 'Test updating status',
         'userId': 'user-status',
         'createdAt': Timestamp.now(),
-        'upvotes': 0,
-        'downvotes': 0,
         'upvoterIds': [],
         'downvoterIds': [],
         'status': 'pending',
@@ -176,8 +163,6 @@ void main() {
         'description': 'This feature will be deleted',
         'userId': 'user-delete',
         'createdAt': Timestamp.now(),
-        'upvotes': 0,
-        'downvotes': 0,
         'upvoterIds': [],
         'downvoterIds': [],
         'status': 'pending',
