@@ -13,22 +13,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
-      title: 'Feature Feedback Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Feature Feedback Demo'),
-        ),
-        body:  FeatureFeedbackWidget(
-          userId: 'test-user',
-          collectionPath: 'feature_requests',
-          isDeveloper: true,
-          primaryColor: Theme.of(context).primaryColor,
-        ),
+      home: FeaturesBoardScreen(
+        userId: 'test-user',
+        collectionPath: 'feature_requests',
+        isAdmin: true,
       ),
     );
   }

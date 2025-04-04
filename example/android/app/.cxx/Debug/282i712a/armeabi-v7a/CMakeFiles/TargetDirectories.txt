@@ -1,0 +1,2 @@
+/Users/fer/Desktop/projects/sessions/firebase_feature/example/android/app/.cxx/Debug/282i712a/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/fer/Desktop/projects/sessions/firebase_feature/example/android/app/.cxx/Debug/282i712a/armeabi-v7a/CMakeFiles/rebuild_cache.dir

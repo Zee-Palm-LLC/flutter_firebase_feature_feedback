@@ -8,24 +8,42 @@ class FeatureFeedbackProvider extends ChangeNotifier {
   List<FeatureRequest> _featureRequests = [];
   bool _isLoading = false;
   String? _error;
+  FeatureRequestStatus _selectedStatus = FeatureRequestStatus.requests;
+
   StreamSubscription? _subscription;
 
   FeatureFeedbackProvider(this._service) {
     _initializeStream();
   }
 
+  FeatureRequestStatus get selectedStatus => _selectedStatus;
   List<FeatureRequest> get featureRequests => _featureRequests;
   bool get isLoading => _isLoading;
   String? get error => _error;
 
   void _initializeStream() {
-    _subscription = _service.getFeatureRequests().listen(
+    _subscription?.cancel();
+    _isLoading = true;
+    _error = null;
+    _featureRequests = [];
+    notifyListeners();
+
+    _subscription = _service
+        .getFeatureRequests(
+      statuses: _selectedStatus == FeatureRequestStatus.requests
+          ? [FeatureRequestStatus.pending, FeatureRequestStatus.approved]
+          : [_selectedStatus],
+    )
+        .listen(
       (requests) {
-        _featureRequests = requests;
+        _featureRequests = requests.sortedByUpVotes;
         _error = null;
+        _isLoading = false;
         notifyListeners();
       },
       onError: (error) {
+        print('Error fetching feature requests: $error');
+        _isLoading = false;
         _error = error.toString();
         notifyListeners();
       },
@@ -56,7 +74,8 @@ class FeatureFeedbackProvider extends ChangeNotifier {
       _error = null;
     } catch (e) {
       if (e.toString().contains('permission-denied')) {
-        _error = 'You don\'t have permission to access this feature. Please check your account settings or contact support.';
+        _error =
+            'You don\'t have permission to access this feature. Please check your account settings or contact support.';
       } else {
         _error = e.toString();
       }
@@ -64,6 +83,11 @@ class FeatureFeedbackProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  void setSelectedStatus(FeatureRequestStatus status) {
+    _selectedStatus = status;
+    _initializeStream();
   }
 
   Future<void> updateVote({
@@ -80,7 +104,8 @@ class FeatureFeedbackProvider extends ChangeNotifier {
       _error = null;
     } catch (e) {
       if (e.toString().contains('permission-denied')) {
-        _error = 'You don\'t have permission to access this feature. Please check your account settings or contact support.';
+        _error =
+            'You don\'t have permission to access this feature. Please check your account settings or contact support.';
       } else {
         _error = e.toString();
       }
@@ -100,7 +125,8 @@ class FeatureFeedbackProvider extends ChangeNotifier {
       _error = null;
     } catch (e) {
       if (e.toString().contains('permission-denied')) {
-        _error = 'You don\'t have permission to access this feature. Please check your account settings or contact support.';
+        _error =
+            'You don\'t have permission to access this feature. Please check your account settings or contact support.';
       } else {
         _error = e.toString();
       }
@@ -114,7 +140,8 @@ class FeatureFeedbackProvider extends ChangeNotifier {
       _error = null;
     } catch (e) {
       if (e.toString().contains('permission-denied')) {
-        _error = 'You don\'t have permission to access this feature. Please check your account settings or contact support.';
+        _error =
+            'You don\'t have permission to access this feature. Please check your account settings or contact support.';
       } else {
         _error = e.toString();
       }
@@ -127,13 +154,14 @@ class FeatureFeedbackProvider extends ChangeNotifier {
       _isLoading = true;
       _error = null;
       notifyListeners();
-      
+
       _featureRequests = await _service.getFeatureRequestsFuture();
       _isLoading = false;
       notifyListeners();
     } catch (e) {
       if (e.toString().contains('permission-denied')) {
-        _error = 'You don\'t have permission to access this feature. Please check your account settings or contact support.';
+        _error =
+            'You don\'t have permission to access this feature. Please check your account settings or contact support.';
       } else {
         _error = e.toString();
       }
@@ -141,4 +169,4 @@ class FeatureFeedbackProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-} 
+}
