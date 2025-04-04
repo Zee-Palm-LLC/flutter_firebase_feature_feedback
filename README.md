@@ -6,7 +6,7 @@ A Flutter package that enables developers to collect and manage feature feedback
 
 | Feature List | Add Feature Form |
 |:------------:|:---------------:|
-| ![Feature List](https://raw.githubusercontent.com/Zee-Palm-LLC/flutter_firebase_feature_feedback/main/screenshots/home_page.png) | ![Add Feature Form](https://raw.githubusercontent.com/Zee-Palm-LLC/flutter_firebase_feature_feedback/main/screenshots/add_feature_sheet.png) |
+| ![Feature List](https://raw.githubusercontent.com/Flucadetena/flutter_firebase_feature_feedback/main/screenshots/board.png) | ![Add Feature Form](https://raw.githubusercontent.com/Flucadetena/flutter_firebase_feature_feedback/main/screenshots/new_request.png) | ![Add Feature Form](https://raw.githubusercontent.com/Flucadetena/flutter_firebase_feature_feedback/main/screenshots/implemented.png) | 
 
 ## Features
 
@@ -30,7 +30,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_firebase_feature_feedback: ^1.0.2
+  flutter_firebase_feature_feedback: ^1.0.4
 ```
 
 ### Firebase Setup
@@ -53,14 +53,10 @@ await Firebase.initializeApp(
 ```dart
   Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => Scaffold(
-                          appBar: AppBar(
-                            title: const Text('Request Feature'),
-                          ),
-                          body: FeatureFeedbackWidget(
+                        builder: (context) => FeaturesBoardScreen(
                             collectionPath: 'feature_requests',
                             userId: uc.user!.id,
-                          ),
+                            isAdmin: true,
                         ),
                       ),
                     );
